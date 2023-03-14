@@ -1,10 +1,9 @@
-import { Product } from 'interfaces';
 import React from 'react';
 
 type SearchState = {
   searchValue: string | null;
 };
-class Search extends React.Component<{}, SearchState> {
+class Search extends React.Component<unknown, SearchState> {
   state = {
     searchValue: localStorage.getItem('searchValue'),
   };

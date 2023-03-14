@@ -1,7 +1,7 @@
 import React from 'react';
 import { Product } from '../interfaces';
 
-class ProductCard extends React.Component<Product, {}> {
+class ProductCard extends React.Component<Product> {
   constructor(props: Product) {
     super(props);
   }

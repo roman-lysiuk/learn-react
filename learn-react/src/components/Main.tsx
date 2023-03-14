@@ -1,4 +1,3 @@
-import { Product } from 'interfaces';
 import React from 'react';
 import date from '../data.json';
 import ProductList from './ProductList';
