@@ -1,19 +1,22 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+// import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import React from 'react';
-import Header from './components/Header';
-import Main from './components/Main';
+import HomePage from './pages/HomePage';
+import AboutUsPage from './pages/AboutUsPage';
+import Page404 from './pages/Page404';
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('Home Page');
-
-  return (
-    <div className="App container">
-      <Header />
-      <div className="headers-current-page">{currentPage}</div>
-      <Main />
-    </div>
-  );
+class App extends React.Component {
+  render(): React.ReactNode {
+    return (
+      <>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      </>
+    );
+  }
 }
 
 export default App;

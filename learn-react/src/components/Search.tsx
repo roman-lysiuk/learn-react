@@ -26,6 +26,7 @@ class Search extends React.Component<{}, SearchState> {
           onChange={this.handleChange}
           className="search__input"
           placeholder="Start searching"
+          value={this.state.searchValue || ''}
         ></input>
         <button className="btn btn_search">Search</button>
       </div>
