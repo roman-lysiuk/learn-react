@@ -5,6 +5,7 @@ import Page404 from '../pages/Page404';
 import AboutUsPage from '../pages/AboutUsPage';
 import { BrowserRouter } from 'react-router-dom';
 import Search from '../components/Search';
+import Header from '../components/Header';
 
 describe('App ', () => {
   it('renders App component', () => {
@@ -18,6 +19,36 @@ describe('App ', () => {
     expect(screen.getByRole('main')).toBeInTheDocument();
     expect(screen.getByRole('heading')).toBeInTheDocument();
     expect(screen.getByText(/About Us/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
+  });
+});
+describe('Header ', () => {
+  it('renders Header title path /', () => {
+    render(
+      <BrowserRouter>
+        <Header path="/" />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
+  });
+  it('renders Header title path /about', () => {
+    render(
+      <BrowserRouter>
+        <Header path="/about" />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByRole('heading', { name: 'about' })).toBeInTheDocument();
+  });
+  it('renders Header title mistake path', () => {
+    render(
+      <BrowserRouter>
+        <Header path="/green" />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
   });
 });
 
@@ -32,7 +63,6 @@ describe('Search ', () => {
     fireEvent.change(screen.getByRole('searchbox'), {
       target: { value: 'React' },
     });
-    screen.debug();
     expect(screen.queryByDisplayValue('React')).toBeInTheDocument();
   });
 });
