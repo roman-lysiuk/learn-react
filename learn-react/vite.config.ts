@@ -4,10 +4,16 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './',
+
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: './setupTests.ts',
+    coverage: {
+      provider: 'c8',
+      all: true,
+      skillFull: true,
+      reporter: 'text',
+    },
   },
 });
