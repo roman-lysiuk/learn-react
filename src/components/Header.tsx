@@ -19,7 +19,16 @@ class Header extends React.Component<PropsHeader> {
     return currentPath.replace('/', '');
   }
   render() {
-    console.log(this.props);
+    const currentPage = this.pageTitleFromPath();
+    if (currentPage === 'Page not found') {
+      //To check componentWillUnmount in Search
+      return (
+        <header className="header">
+          <h1 className="page-title">{this.pageTitleFromPath()}</h1>
+          <Menu />
+        </header>
+      );
+    }
     return (
       <header className="header">
         <h1 className="page-title">{this.pageTitleFromPath()}</h1>
