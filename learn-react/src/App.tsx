@@ -6,7 +6,7 @@ import AboutUsPage from './pages/AboutUsPage';
 import Page404 from './pages/Page404';
 import Header from './components/Header';
 import { WithRouterProps } from './helpers/withRouter';
-interface AppProps extends WithRouterProps {}
+type AppProps = WithRouterProps;
 
 class App extends React.Component<AppProps> {
   render(): React.ReactNode {

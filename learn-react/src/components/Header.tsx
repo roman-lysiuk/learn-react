@@ -1,5 +1,3 @@
-import pageTitleFromPath from '../helpers/pageTitleFromPath';
-import { WithRouterProps } from 'helpers/withRouter';
 import React from 'react';
 
 import Menu from './Menu';
@@ -8,9 +6,8 @@ import Search from './Search';
 interface PropsHeader {
   path: string;
 }
-type StateHeader = {};
 
-class Header extends React.Component<PropsHeader, StateHeader> {
+class Header extends React.Component<PropsHeader> {
   pageTitleFromPath(): string {
     const currentPath = this.props.path;
     if (currentPath === '/') {
