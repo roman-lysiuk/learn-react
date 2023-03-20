@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Menu from './Menu';
-import Search from './Search';
+import Menu from '../Menu/Menu';
+import Search from '../Search/Search';
 
 interface PropsHeader {
   path: string;

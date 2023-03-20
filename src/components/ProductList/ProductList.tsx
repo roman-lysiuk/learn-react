@@ -1,6 +1,6 @@
 import { Product } from 'interfaces';
 import React from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard/ProductCard';
 class ProductList extends React.Component<{ items: Product[] }> {
   listProducts: JSX.Element[];
   constructor(props: { items: Product[] }) {

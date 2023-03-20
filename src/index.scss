@@ -1,8 +1,8 @@
-@import './style/header.scss';
-@import './style/search.scss';
-@import './style/menu.scss';
-@import './style/card.scss';
-@import './style/main.scss';
+@import "./components//Header/header.scss";
+@import "./components/Search/search.scss";
+@import "./components/Menu/menu.scss";
+@import "./components/ProductCard/card.scss";
+@import "./components/Main/main.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

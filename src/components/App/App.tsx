@@ -1,11 +1,11 @@
 // import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
-import HomePage from './pages/HomePage';
-import AboutUsPage from './pages/AboutUsPage';
-import Page404 from './pages/Page404';
-import Header from './components/Header';
-import { WithRouterProps } from './helpers/withRouter';
+import HomePage from '../../pages/HomePage';
+import AboutUsPage from '../../pages/AboutUsPage';
+import Page404 from '../../pages/Page404';
+import Header from '../Header/Header';
+import { WithRouterProps } from '../../helpers/withRouter';
 type AppProps = WithRouterProps;
 
 class App extends React.Component<AppProps> {

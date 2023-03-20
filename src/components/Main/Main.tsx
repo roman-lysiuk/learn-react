@@ -1,6 +1,6 @@
 import React from 'react';
-import date from '../data.json';
-import ProductList from './ProductList';
+import date from '../../Data/data.json';
+import ProductList from '../ProductList/ProductList';
 class Main extends React.Component {
   render() {
     return (

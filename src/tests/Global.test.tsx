@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import App from '../App';
+import App from '../components/App/App';
 import Page404 from '../pages/Page404';
 import AboutUsPage from '../pages/AboutUsPage';
 import { BrowserRouter } from 'react-router-dom';
-import Search from '../components/Search';
-import Header from '../components/Header';
+import Search from '../components/Search/Search';
+import Header from '../components/Header/Header';
 
 describe('App ', () => {
   it('renders App component', () => {
