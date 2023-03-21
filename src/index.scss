@@ -3,6 +3,7 @@
 @import "./components/Menu/menu.scss";
 @import "./components/ProductCard/card.scss";
 @import "./components/Main/main.scss";
+@import "./components/Form/form.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -74,4 +75,10 @@ button:focus-visible {
 .page--error-title {
   text-align: center;
   font-size: 4rem;
+}
+.card-list {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 50px;
 }

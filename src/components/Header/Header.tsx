@@ -13,10 +13,13 @@ class Header extends React.Component<PropsHeader> {
     if (currentPath === '/') {
       return 'Home';
     }
-    if (currentPath !== '/about') {
-      return 'Page not found';
+    if (currentPath === '/about') {
+      return 'About';
     }
-    return currentPath.replace('/', '');
+    if (currentPath === '/form') {
+      return 'Form';
+    }
+    return 'Page not found';
   }
   render() {
     const currentPage = this.pageTitleFromPath();
