@@ -39,7 +39,7 @@ describe('Header ', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByRole('heading', { name: 'about' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'About' })).toBeInTheDocument();
   });
   it('renders Header title mistake path', () => {
     render(

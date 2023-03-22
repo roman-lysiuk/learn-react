@@ -18,7 +18,7 @@ class UserCard extends React.Component<IUserCard> {
 
   render() {
     return (
-      <div className="card">
+      <div className="card" data-testid="card">
         <div className="card__image">
           <img src={this.imgAvatar} alt={this.props.avatar?.name} />
         </div>

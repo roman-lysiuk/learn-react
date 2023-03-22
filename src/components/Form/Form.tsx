@@ -11,6 +11,7 @@ type FormState = {
   textErrorBirthday: string | null;
   textErrorAgreeCheckboxData: string | null;
   textErrorAgreeCheckboxPolicy: string | null;
+  textDataSave: string;
 };
 
 class Form extends React.Component<FormProps, FormState> {
@@ -19,6 +20,7 @@ class Form extends React.Component<FormProps, FormState> {
     textErrorBirthday: '',
     textErrorAgreeCheckboxData: '',
     textErrorAgreeCheckboxPolicy: '',
+    textDataSave: '',
   };
 
   linkInput: {
@@ -47,6 +49,7 @@ class Form extends React.Component<FormProps, FormState> {
   render() {
     return (
       <div>
+        <h2 className="text-data-save">{this.state.textDataSave}</h2>
         <form className="form">
           <CreateInputBlock
             id="form-name"
@@ -115,6 +118,7 @@ class Form extends React.Component<FormProps, FormState> {
             typeInput="checkbox"
             ref={this.linkInput.agreeCheckboxDataPolicy}
             required={true}
+            defaultChecked={false}
             textErrorInput={this.state.textErrorAgreeCheckboxPolicy}
             name="agree-policy"
           />
@@ -142,10 +146,11 @@ class Form extends React.Component<FormProps, FormState> {
         sex: this.linkInput.sexInput.current?.checked ? 'male' : 'female',
       };
       this.props.changeUserCardArr(userCard);
-      alert('Your data has been saved');
+      this.setState({ textDataSave: 'Your data has been saved' });
+      this.cleanForm();
       setTimeout(() => {
-        this.cleanForm();
-      }, 600);
+        this.setState({ textDataSave: '' });
+      }, 3000);
     }
   };
 
@@ -210,11 +215,21 @@ class Form extends React.Component<FormProps, FormState> {
       textErrorAgreeCheckboxData: '',
       textErrorAgreeCheckboxPolicy: '',
     });
-    this.linkInput.nameInput.current!.value = '';
-    this.linkInput.birthdayInput.current!.value = '';
-    this.linkInput.agreeCheckboxData.current!.checked = false;
-    this.linkInput.agreeCheckboxDataPolicy.current!.checked = false;
-    this.linkInput.fileInput.current!.value = '';
+    if (this.linkInput.nameInput.current) {
+      this.linkInput.nameInput.current.value = '';
+    }
+    if (this.linkInput.birthdayInput.current) {
+      this.linkInput.birthdayInput.current.value = '';
+    }
+    if (this.linkInput.agreeCheckboxData.current) {
+      this.linkInput.agreeCheckboxData.current.checked = false;
+    }
+    if (this.linkInput.agreeCheckboxDataPolicy.current) {
+      this.linkInput.agreeCheckboxDataPolicy.current.checked = false;
+    }
+    if (this.linkInput.fileInput.current) {
+      this.linkInput.fileInput.current.value = '';
+    }
   }
   isValidate(): boolean {
     const {

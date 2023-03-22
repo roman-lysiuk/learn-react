@@ -49,7 +49,7 @@ const CreateInputBlock = forwardRef(
             ref={ref as LegacyRef<HTMLInputElement> | undefined}
             value={props.value || undefined}
             accept={props.accept || undefined}
-            defaultChecked={props.defaultChecked}
+            defaultChecked={props.defaultChecked || false}
             defaultValue={props.defaultValue}
           />
           <div className="text-error">{props.textErrorInput}</div>
