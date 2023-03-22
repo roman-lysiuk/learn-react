@@ -1,16 +1,16 @@
-import UserCard, { IUserCard } from '../../components/UserCard/UserCard';
+import { IUserCard } from '../../components/UserCard/UserCard';
 import React from 'react';
 import { country } from '../../Data/listCountry.json';
 import CreateInputBlock from '../../helpers/CreateInputBlock';
 
-type FormProps = {};
+type FormProps = {
+  changeUserCardArr: (userCard: IUserCard) => void;
+};
 type FormState = {
   textErrorName: string | null;
   textErrorBirthday: string | null;
   textErrorAgreeCheckboxData: string | null;
   textErrorAgreeCheckboxPolicy: string | null;
-
-  userCardsArr: JSX.Element[];
 };
 
 class Form extends React.Component<FormProps, FormState> {
@@ -19,8 +19,6 @@ class Form extends React.Component<FormProps, FormState> {
     textErrorBirthday: '',
     textErrorAgreeCheckboxData: '',
     textErrorAgreeCheckboxPolicy: '',
-    radioValue: 'female',
-    userCardsArr: [],
   };
 
   linkInput: {
@@ -49,7 +47,7 @@ class Form extends React.Component<FormProps, FormState> {
   render() {
     return (
       <div>
-        <form className="form" onSubmit={this.handlerSubmitButton}>
+        <form className="form">
           <CreateInputBlock
             id="form-name"
             labelTitle="Name"
@@ -68,57 +66,62 @@ class Form extends React.Component<FormProps, FormState> {
             textErrorInput={this.state.textErrorBirthday}
             name="birthday"
           />
-          <label>
-            Country:
-            <select required name="country" id="form-country" ref={this.linkInput.countryInput}>
-              {country.map((country, index) => {
-                return <option key={index}>{country}</option>;
-              })}
-            </select>
-          </label>
-          <div>
-            <label>
-              Male
-              <input type="radio" name="sex" value="male" ref={this.linkInput.sexInput} />
-            </label>
-            <label>
-              Female
-              <input defaultChecked={true} type="radio" name="sex" value="female" />
-            </label>
+          <CreateInputBlock
+            id="form-form-country"
+            labelTitle="Country"
+            typeInput="select"
+            ref={this.linkInput.countryInput}
+            name="country"
+            optionForSelect={country}
+          />
+          <div className="choice-gender">
+            <CreateInputBlock
+              id="form-sex-male"
+              labelTitle="Male"
+              typeInput="radio"
+              ref={this.linkInput.sexInput}
+              name="sex"
+              value="male"
+            />
+            <CreateInputBlock
+              id="form-sex-female"
+              labelTitle="Female"
+              typeInput="radio"
+              defaultChecked={true}
+              name="sex"
+              value="female"
+            />
           </div>
-          <label>
-            File upload - profile picture
-            <input type="file" accept="image/*" ref={this.linkInput.fileInput} />
-          </label>
-          <label>
-            I consent to my personal data
-            <input
-              required
-              type="checkbox"
-              name="agree-data"
-              ref={this.linkInput.agreeCheckboxData}
-            />
-            <div className="text-error">{this.state.textErrorAgreeCheckboxData}</div>
-          </label>
-          <label>
-            I have read the privacy policy
-            <input
-              required
-              type="checkbox"
-              name="agree-policy"
-              ref={this.linkInput.agreeCheckboxDataPolicy}
-            />
-            <div className="text-error">{this.state.textErrorAgreeCheckboxPolicy}</div>
-          </label>
+          <CreateInputBlock
+            id="form-file"
+            labelTitle="File upload - profile picture"
+            typeInput="file"
+            accept="image/*"
+            ref={this.linkInput.fileInput}
+            name="avatar-img"
+          />
+          <CreateInputBlock
+            id="form-agree-data"
+            labelTitle=" I consent to my personal data"
+            typeInput="checkbox"
+            ref={this.linkInput.agreeCheckboxData}
+            required={true}
+            textErrorInput={this.state.textErrorAgreeCheckboxData}
+            name="agree-data"
+          />
+          <CreateInputBlock
+            id="form-agree-policy"
+            labelTitle="I have read the privacy policy"
+            typeInput="checkbox"
+            ref={this.linkInput.agreeCheckboxDataPolicy}
+            required={true}
+            textErrorInput={this.state.textErrorAgreeCheckboxPolicy}
+            name="agree-policy"
+          />
           <button type="button" onClick={this.handlerSubmitButton}>
             Submit
           </button>
         </form>
-        <div className="card-list">
-          {this.state.userCardsArr.map((userCard) => {
-            return userCard;
-          })}
-        </div>
       </div>
     );
   }
@@ -138,10 +141,11 @@ class Form extends React.Component<FormProps, FormState> {
         country: this.linkInput.countryInput.current?.value as string,
         sex: this.linkInput.sexInput.current?.checked ? 'male' : 'female',
       };
-      this.setState({
-        userCardsArr: [...this.state.userCardsArr, <UserCard {...userCard} key={userCard.id} />],
-      });
-      this.cleanForm();
+      this.props.changeUserCardArr(userCard);
+      alert('Your data has been saved');
+      setTimeout(() => {
+        this.cleanForm();
+      }, 600);
     }
   };
 

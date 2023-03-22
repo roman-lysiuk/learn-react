@@ -20,7 +20,7 @@ class UserCard extends React.Component<IUserCard> {
     return (
       <div className="card">
         <div className="card__image">
-          <img src={this.imgAvatar} alt="" />
+          <img src={this.imgAvatar} alt={this.props.avatar?.name} />
         </div>
         <div className="card__title">Name: {this.props.name}</div>
         <div className="card__sex">Gender: {this.props.sex}</div>
