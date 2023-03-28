@@ -1,5 +1,5 @@
 import { Product } from 'interfaces';
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { products } from '../../Data/data.json';
 function ProductList() {
