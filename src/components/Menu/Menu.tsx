@@ -7,7 +7,6 @@ export default function Menu() {
       <Link to="/">Home</Link>
       <Link to="/about">About us</Link>
       <Link to="/form">Form</Link>
-      <Link to="/page404">Page 404</Link>
     </nav>
   );
 }

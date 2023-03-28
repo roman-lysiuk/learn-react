@@ -2,11 +2,16 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import FormPage from './FormPage';
 
 describe('Form Page  ', () => {
   it('renders FormPage component', () => {
-    render(<FormPage />);
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
     expect(screen.getAllByRole('checkbox').length).toBe(2);
     expect(screen.getAllByRole('radio').length).toBe(2);
     expect(screen.getAllByRole('option').length).toBe(5);
@@ -15,7 +20,11 @@ describe('Form Page  ', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
   it('click checkbox', async () => {
-    render(<FormPage />);
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
 
     const checkboxAgreeData = screen.getByRole('checkbox', {
       name: 'I consent to my personal data',
@@ -34,7 +43,11 @@ describe('Form Page  ', () => {
   });
 
   it('fill out the form and generate a five card', async () => {
-    render(<FormPage />);
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
 
     const nameInput = screen.getByRole('textbox', {
       name: 'Name',

@@ -3,10 +3,14 @@ import { useLocation } from 'react-router-dom';
 
 import Menu from '../Menu/Menu';
 import Search from '../Search/Search';
+type HeaderProps = {
+  isSearch: boolean;
+};
 
-function Header() {
+function Header(props: HeaderProps) {
   const [title, setTitle] = useState('');
   const location = useLocation();
+  const [search] = useState(props.isSearch);
 
   useEffect(() => {
     const title = pageTitleFromPath(location.pathname);
@@ -28,7 +32,7 @@ function Header() {
     <header className="header">
       <h1 className="page-title">{title}</h1>
       <Menu />
-      <Search />
+      {search ? <Search /> : null}
     </header>
   );
 }
