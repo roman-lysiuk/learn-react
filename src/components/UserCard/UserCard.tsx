@@ -2,15 +2,16 @@ import React from 'react';
 export interface IUserCard {
   id: string;
   name: string;
-  avatar?: string | null;
+  avatar?: File | null;
   birthday: string;
   country: string;
   gender: string;
 }
+URL;
 
 function UserCard(user: IUserCard) {
   const imgAvatar = user.avatar
-    ? user.avatar
+    ? URL.createObjectURL(user.avatar)
     : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
 
   return (

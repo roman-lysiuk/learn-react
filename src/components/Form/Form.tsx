@@ -18,6 +18,8 @@ type DataInput = {
 
 function Form(props: FormProps) {
   const [textDataSave, setTextDataSave] = useState('');
+  const avatarRef = React.createRef<HTMLInputElement>();
+
   const {
     register,
     handleSubmit,
@@ -44,11 +46,11 @@ function Form(props: FormProps) {
   };
 
   function onSubmit(data: DataInput) {
-    const fileList = data.avatar || null;
+    const fileList: FileList | null | undefined = avatarRef.current?.files;
     const userCard: IUserCard = {
       id: Date.now().toString(),
       name: data.firstName,
-      avatar: fileList ? URL.createObjectURL(fileList[0] as unknown as File) : null,
+      avatar: fileList ? (fileList[0] as File) : null,
       birthday: new Date(data.birthday).toLocaleDateString(),
       country: data.country,
       gender: data.gender,
@@ -153,7 +155,7 @@ function Form(props: FormProps) {
 
         <label>
           Avatar :
-          <input accept="image/*" type="file" {...register('avatar')} />
+          <input accept="image/*" type="file" {...(register('avatar'), { ref: avatarRef })} />
           {errors.avatar && <div className="text-error">{errors.avatar?.message?.toString()}</div>}
         </label>
 
