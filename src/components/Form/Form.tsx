@@ -22,8 +22,7 @@ function Form(props: FormProps) {
     register,
     handleSubmit,
     reset,
-    watch,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm({
     reValidateMode: 'onSubmit',
     mode: 'onSubmit',
@@ -57,11 +56,11 @@ function Form(props: FormProps) {
 
     props.changeUserCardArr(userCard);
 
+    reset();
     setTextDataSave('Your data has been saved');
 
     setTimeout(() => {
       setTextDataSave('');
-      reset();
     }, 2000);
   }
 
