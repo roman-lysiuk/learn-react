@@ -1,29 +1,26 @@
 import Form from '../components/Form/Form';
-import React from 'react';
+import React, { useState } from 'react';
 import UserCard, { IUserCard } from '../components/UserCard/UserCard';
+import Header from '../components/Header/Header';
 
-class FormPage extends React.Component {
-  state = {
-    userCardsArr: [],
-  };
-  changeUserCardArr = (userCard: IUserCard) => {
-    this.setState({
-      userCardsArr: [...this.state.userCardsArr, userCard],
-    });
-  };
-  render(): React.ReactNode {
-    return (
-      <div>
-        <Form changeUserCardArr={this.changeUserCardArr} />
+function FormPage() {
+  const [userCards, setUserCards] = useState<Array<IUserCard>>([]);
 
-        <div className="card-list">
-          {this.state.userCardsArr.map((userCard: IUserCard) => {
-            return <UserCard {...userCard} key={userCard.id} />;
-          })}
-        </div>
-      </div>
-    );
+  function changeUserCardArr(userCard: IUserCard): void {
+    setUserCards([...userCards, userCard]);
   }
+
+  return (
+    <div>
+      <Header isSearch={false} />
+      <Form changeUserCardArr={changeUserCardArr} />
+      <div className="card-list">
+        {userCards.map((userCard: IUserCard) => {
+          return <UserCard {...userCard} key={userCard.id} />;
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default FormPage;

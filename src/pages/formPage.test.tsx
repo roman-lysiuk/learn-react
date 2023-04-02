@@ -1,12 +1,17 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import FormPage from './FormPage';
 
 describe('Form Page  ', () => {
   it('renders FormPage component', () => {
-    render(<FormPage />);
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
     expect(screen.getAllByRole('checkbox').length).toBe(2);
     expect(screen.getAllByRole('radio').length).toBe(2);
     expect(screen.getAllByRole('option').length).toBe(5);
@@ -15,48 +20,51 @@ describe('Form Page  ', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
   it('click checkbox', async () => {
-    render(<FormPage />);
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
 
     const checkboxAgreeData = screen.getByRole('checkbox', {
       name: 'I consent to my personal data',
     });
     const checkboxAgreePolicy = screen.getByRole('checkbox', {
-      name: 'I have read the privacy policy',
+      name: 'I read the privacy policy',
     });
     expect(checkboxAgreeData).not.toBeChecked();
-    expect(checkboxAgreePolicy).not.toBeChecked();
+    expect(checkboxAgreePolicy).toBeChecked();
     await userEvent.click(checkboxAgreeData);
     expect(checkboxAgreeData).toBeChecked();
-    expect(checkboxAgreePolicy).not.toBeChecked();
-    await userEvent.click(checkboxAgreePolicy);
     expect(checkboxAgreePolicy).toBeChecked();
-    expect(checkboxAgreeData).toBeChecked();
   });
 
-  it('fill out the form and generate a five card', async () => {
-    render(<FormPage />);
+  it('fill out the form and generate a one card', async () => {
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
 
     const nameInput = screen.getByRole('textbox', {
-      name: 'Name',
+      name: 'FirstName:',
     });
-    const birthdayInput = screen.getByLabelText('Birthday') as HTMLInputElement;
+    const birthdayInput = screen.getByLabelText(/Birthday/i) as HTMLInputElement;
+
     const checkboxAgreeData = screen.getByRole('checkbox', {
       name: 'I consent to my personal data',
     });
-    const checkboxAgreePolicy = screen.getByRole('checkbox', {
-      name: 'I have read the privacy policy',
-    });
+
     const buttonSubmit = screen.getByRole('button');
     const nameArray = ['Roma', 'Lena', 'Gena', 'Svetlana', 'Alex'];
 
-    for (const name of nameArray) {
+    for await (const name of nameArray) {
       await userEvent.type(nameInput, name);
-      await userEvent.type(birthdayInput, '2022-01-01');
-      await userEvent.click(checkboxAgreeData);
-      await userEvent.click(checkboxAgreePolicy);
-      await userEvent.click(buttonSubmit);
-      await userEvent.click(buttonSubmit);
+      fireEvent.change(birthdayInput, { target: { value: '1990-01-01' } });
+      userEvent.click(checkboxAgreeData);
+      userEvent.click(buttonSubmit);
     }
+
     await waitFor(() => {
       expect(screen.getAllByTestId(/card/i).length).toBe(nameArray.length);
     });

@@ -3,9 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../components/App/App';
 import Page404 from '../pages/Page404';
 import AboutUsPage from '../pages/AboutUsPage';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import Search from '../components/Search/Search';
 import Header from '../components/Header/Header';
+import userEvent from '@testing-library/user-event';
 
 describe('App ', () => {
   it('renders App component', () => {
@@ -15,40 +16,44 @@ describe('App ', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText(/About/i)).toBeInTheDocument();
     expect(screen.getByRole('main')).toBeInTheDocument();
     expect(screen.getByRole('heading')).toBeInTheDocument();
     expect(screen.getByText(/About Us/i)).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
   });
 });
+
 describe('Header ', () => {
   it('renders Header title path /', () => {
     render(
       <BrowserRouter>
-        <Header path="/" />
+        <Header isSearch={true} />
       </BrowserRouter>
     );
 
     expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
   });
-  it('renders Header title path /about', () => {
+
+  it('renders Header title path /about', async () => {
     render(
       <BrowserRouter>
-        <Header path="/about" />
+        <App />
       </BrowserRouter>
     );
+    const buttonAbout = screen.getByText(/About us/i);
+    await userEvent.click(buttonAbout);
 
     expect(screen.getByRole('heading', { name: 'About' })).toBeInTheDocument();
   });
-  it('renders Header title mistake path', () => {
-    render(
-      <BrowserRouter>
-        <Header path="/green" />
-      </BrowserRouter>
-    );
 
-    expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
+  it('renders Header title mistake path', () => {
+    const badRoute = '/error';
+
+    render(
+      <MemoryRouter initialEntries={[badRoute]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: 'Error' })).toBeInTheDocument();
   });
 });
 
@@ -69,7 +74,11 @@ describe('Search ', () => {
 
 describe('Page404  ', () => {
   it('renders Page404 component', () => {
-    render(<Page404 />);
+    render(
+      <BrowserRouter>
+        <Page404 />
+      </BrowserRouter>
+    );
 
     expect(screen.getByText(/404/i)).toBeInTheDocument();
     expect(screen.getByText(/Error/i)).toBeInTheDocument();

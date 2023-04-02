@@ -1,6 +1,6 @@
 .card {
-  max-width: calc(100% / 4 - 25px);
-  max-height: 400px;
+  width: calc(100% / 5 - 25px);
+  max-height: 300px;
   box-shadow: 2px 2px 24px 1px rgba(0, 0, 0, 0.55);
   border-radius: 10px;
   &__image {

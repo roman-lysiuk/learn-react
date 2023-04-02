@@ -1,44 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Menu from '../Menu/Menu';
 import Search from '../Search/Search';
+type HeaderProps = {
+  isSearch: boolean;
+};
 
-interface PropsHeader {
-  path: string;
+function Header(props: HeaderProps) {
+  const [title, setTitle] = useState('');
+  const location = useLocation();
+  const [search] = useState(props.isSearch);
+
+  useEffect(() => {
+    const title = pageTitleFromPath(location.pathname);
+
+    setTitle(title);
+  }, [location]);
+
+  function pageTitleFromPath(path: string): string {
+    const title = path.replace('/', '');
+
+    if (title === '') return 'Home';
+
+    if (title.match(/page404/i)) return 'Page not found';
+
+    return title[0].toUpperCase() + title.slice(1);
+  }
+
+  return (
+    <header className="header">
+      <h1 className="page-title">{title}</h1>
+      <Menu />
+      {search ? <Search /> : null}
+    </header>
+  );
 }
 
-class Header extends React.Component<PropsHeader> {
-  pageTitleFromPath(): string {
-    const currentPath = this.props.path;
-    if (currentPath === '/') {
-      return 'Home';
-    }
-    if (currentPath === '/about') {
-      return 'About';
-    }
-    if (currentPath === '/form') {
-      return 'Form';
-    }
-    return 'Page not found';
-  }
-  render() {
-    const currentPage = this.pageTitleFromPath();
-    if (currentPage === 'Page not found') {
-      //To check componentWillUnmount in Search
-      return (
-        <header className="header">
-          <h1 className="page-title">{this.pageTitleFromPath()}</h1>
-          <Menu />
-        </header>
-      );
-    }
-    return (
-      <header className="header">
-        <h1 className="page-title">{this.pageTitleFromPath()}</h1>
-        <Menu />
-        <Search />
-      </header>
-    );
-  }
-}
 export default Header;
