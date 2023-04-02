@@ -1,39 +1,45 @@
 import { IUserCard } from '../../components/UserCard/UserCard';
 import React, { useState } from 'react';
+
 import { country } from '../../Data/listCountry.json';
 import { useForm } from 'react-hook-form';
+import Input from '../../components/Input/Input';
+import SelectInput from '../../components/SelectInput/SelectInput';
+import RadioGroup from '../../components/RadioGroup/RadioGroup';
 
 type FormProps = {
   changeUserCardArr: (userCard: IUserCard) => void;
 };
-type DataInput = {
+export type FormInput = {
   firstName: string;
   birthday: string;
   country: string;
   gender: string;
-  avatar: string;
+  avatar: FileList;
   agreeData: boolean;
   agreePolicy: boolean;
 };
 
 function Form(props: FormProps) {
   const [textDataSave, setTextDataSave] = useState('');
-  const avatarRef = React.createRef<HTMLInputElement>();
+  const genderList = [
+    { value: 'male', labelName: 'Male' },
+    { value: 'female', labelName: 'Female' },
+  ];
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormInput>({
     reValidateMode: 'onSubmit',
     mode: 'onSubmit',
     defaultValues: {
       firstName: '',
-      birthday: '2000-01-01',
+      birthday: '2018-07-22',
       country: country[1],
       gender: 'male',
-      avatar: '',
       agreeData: false,
       agreePolicy: true,
     },
@@ -45,12 +51,12 @@ function Form(props: FormProps) {
     maxLengthErrorMessage: `Maximum length characters `,
   };
 
-  function onSubmit(data: DataInput) {
-    const fileList: FileList | null | undefined = avatarRef.current?.files;
+  function onSubmit(data: FormInput) {
+    const fileList: FileList | null | undefined = data.avatar;
     const userCard: IUserCard = {
       id: Date.now().toString(),
       name: data.firstName,
-      avatar: fileList ? (fileList[0] as File) : null,
+      avatar: fileList ? fileList[0] : null,
       birthday: new Date(data.birthday).toLocaleDateString(),
       country: data.country,
       gender: data.gender,
@@ -65,120 +71,100 @@ function Form(props: FormProps) {
       setTextDataSave('');
     }, 2000);
   }
+  const validationFirstName = {
+    required: {
+      value: true,
+      message: emptyErrorMessage,
+    },
+    minLength: {
+      value: 3,
+      message: `${minLengthErrorMessage + 3}`,
+    },
+    maxLength: {
+      value: 15,
+      message: `${maxLengthErrorMessage + 15}`,
+    },
+    pattern: {
+      value: /^[A-Z][a-z]{2,}/gm,
+      message: 'Lower case name',
+    },
+  };
+  const validateBirthday = {
+    valueAsDate: true,
+    required: {
+      value: true,
+      message: emptyErrorMessage,
+    },
+    validate: (value: string | boolean | FileList | Date): boolean | string => {
+      const dateYear = new Date(value as string).getFullYear();
+      const currentDate = new Date().getFullYear();
+      const yearAge = 5;
+      const isValid = dateYear <= currentDate - yearAge;
+      return isValid || 'At least 5 years ago';
+    },
+  };
 
+  const validationCheckbox = { required: { value: true, message: emptyErrorMessage } };
   return (
     <div>
       <h2 className="text-data-save">{textDataSave}</h2>
+
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          FirstName:
-          <input
-            placeholder="Enter FirstName"
-            type="text"
-            {...register('firstName', {
-              required: {
-                value: true,
-                message: emptyErrorMessage,
-              },
-              minLength: {
-                value: 3,
-                message: `${minLengthErrorMessage + 3}`,
-              },
-              maxLength: {
-                value: 15,
-                message: `${maxLengthErrorMessage + 15}`,
-              },
-              pattern: {
-                value: /^[A-Z][a-z]{2,}/gm,
-                message: 'Lower case name',
-              },
-            })}
-          />
-          {errors.firstName && (
-            <div className="text-error">{errors.firstName.message?.toString()}</div>
-          )}
-        </label>
-        <label>
-          Birthday :
-          <input
-            type="date"
-            {...register('birthday', {
-              required: {
-                value: true,
-                message: emptyErrorMessage,
-              },
-              validate: {
-                tooSmall: (value) => {
-                  const dateYear = new Date(value).getFullYear();
-                  const currentDate = new Date().getFullYear();
-                  const yearAge = 5;
-                  const isValid = dateYear <= currentDate - yearAge;
+        <Input
+          type="text"
+          labelName="FirstName: "
+          register={register}
+          name="firstName"
+          errors={errors}
+          placeholder="Enter FirstName"
+          validation={validationFirstName}
+        />
 
-                  return isValid || 'At least 5 years ago';
-                },
-              },
-              valueAsDate: true,
-            })}
-          />
-          {errors.birthday && (
-            <div className="text-error">{errors.birthday?.message?.toString()}</div>
-          )}
-        </label>
+        <Input
+          type="date"
+          labelName="Birthday: "
+          register={register}
+          name="birthday"
+          errors={errors}
+          validation={validateBirthday}
+        />
 
-        <label>
-          Country:
-          <select {...register('country')}>
-            {country.map((name, i) => {
-              return (
-                <option key={i} value={name}>
-                  {name}
-                </option>
-              );
-            })}
-          </select>
-          {errors.country && (
-            <div className="text-error">{errors.country?.message?.toString()}</div>
-          )}
-        </label>
+        <SelectInput
+          name="country"
+          labelName="Country:"
+          register={register}
+          errors={errors}
+          listOption={country}
+        />
 
-        <div className="choice-gender">
-          <label>
-            Male
-            <input type="radio" value={'male'} {...register('gender')} />
-          </label>
-          <label>
-            Female
-            <input type="radio" value={'female'} {...register('gender')} />
-          </label>
-          {errors.gender && <div className="text-error">{errors.gender?.message?.toString()}</div>}
-        </div>
+        <RadioGroup register={register} errors={errors} name="gender" listRadio={genderList} />
 
-        <label>
-          Avatar :
-          <input accept="image/*" type="file" {...(register('avatar'), { ref: avatarRef })} />
-          {errors.avatar && <div className="text-error">{errors.avatar?.message?.toString()}</div>}
-        </label>
+        <Input
+          type="file"
+          labelName="Avatar: "
+          register={register}
+          name="avatar"
+          errors={errors}
+          accept="image/*"
+        />
 
-        <label>
-          I consent to my personal data
-          <input
-            type="checkbox"
-            {...register('agreeData', { required: { value: true, message: emptyErrorMessage } })}
-          />
-          {errors.agreeData && (
-            <div className="text-error">{errors.agreeData?.message?.toString()}</div>
-          )}
-        </label>
-        <label>
-          I read the privacy policy
-          <input
-            type="checkbox"
-            {...register('agreePolicy', { required: { value: true, message: emptyErrorMessage } })}
-          />
-          {errors.agreePolicy && (
-            <div className="text-error">{errors.agreePolicy?.message?.toString()}</div>
-          )}
-        </label>
+        <Input
+          type="checkbox"
+          labelName="I consent to my personal data"
+          register={register}
+          name="agreeData"
+          errors={errors}
+          validation={validationCheckbox}
+        />
+
+        <Input
+          type="checkbox"
+          labelName="I read the privacy policy"
+          register={register}
+          name="agreePolicy"
+          errors={errors}
+          validation={validationCheckbox}
+        />
 
         <button type="submit">Submit</button>
       </form>
