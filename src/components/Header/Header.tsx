@@ -3,8 +3,11 @@ import { useLocation } from 'react-router-dom';
 
 import Menu from '../Menu/Menu';
 import Search from '../Search/Search';
+import { Character } from 'interfaces';
 type HeaderProps = {
   isSearch: boolean;
+  setSearchCharacterCards: Function;
+  characterCards: Character[];
 };
 
 function Header(props: HeaderProps) {
@@ -32,7 +35,12 @@ function Header(props: HeaderProps) {
     <header className="header">
       <h1 className="page-title">{title}</h1>
       <Menu />
-      {search ? <Search /> : null}
+      {search ? (
+        <Search
+          setSearchCharacterCards={props.setSearchCharacterCards}
+          characterCards={props.characterCards}
+        />
+      ) : null}
     </header>
   );
 }

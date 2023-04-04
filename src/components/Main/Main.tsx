@@ -1,10 +1,9 @@
+import CharacterList from '../../components/CharacterList/CharacterList';
+import { Character } from 'interfaces';
 import React from 'react';
-import ProductList from '../ProductList/ProductList';
-
-export default function Main() {
-  return (
-    <main className="main">
-      <ProductList />
-    </main>
-  );
+type MainProps = {
+  characterCards: Character[];
+};
+export default function Main(props: MainProps) {
+  return <main className="main">{<CharacterList arrCard={props.characterCards} />}</main>;
 }

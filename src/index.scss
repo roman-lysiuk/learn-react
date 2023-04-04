@@ -1,9 +1,9 @@
-@import './components//Header/header.scss';
-@import './components/Search/search.scss';
-@import './components/Menu/menu.scss';
-@import './components/ProductCard/card.scss';
-@import './components/Main/main.scss';
-@import './components/Form/form.scss';
+@import "./components//Header/header.scss";
+@import "./components/Search/search.scss";
+@import "./components/Menu/menu.scss";
+@import "./components/CharacterCard/card.scss";
+@import "./components/Main/main.scss";
+@import "./components/Form/form.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -76,7 +76,7 @@ button:focus-visible {
   text-align: center;
   font-size: 4rem;
 }
-.card-list {
+.character-list {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
