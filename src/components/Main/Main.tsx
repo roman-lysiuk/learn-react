@@ -9,7 +9,7 @@ type MainProps = {
 };
 export default function Main(props: MainProps) {
   const [currentCharacter, setCurrentCharacter] = useState<Character>();
-  const { isOpenModal, openModal, closeModal } = useContext(ContextModal);
+  const { isOpenModal, openModal } = useContext(ContextModal);
 
   return (
     <>

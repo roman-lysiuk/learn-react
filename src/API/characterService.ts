@@ -1,18 +1,20 @@
 import { Character, DataCharacterApi } from 'interfaces';
 
 export default class characterService {
-  static url = 'https://the-one-api.dev/v2/character';
-  static async getAllCharacter(limit = 100): Promise<Character[]> {
+  static url: string = import.meta.env.VITE_URL;
+  static token: string = import.meta.env.VITE_TOKEN;
+
+  static async getAllCharacter(limit = 1000): Promise<Character[]> {
+    console.log(characterService.token);
     const response = await fetch(`${characterService.url}?limit=${limit}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer 31GQ6KxzLOqhWhQ3fB0s',
+        Authorization: `Bearer ${characterService.token}`,
       },
     });
     const data: DataCharacterApi = await response.json();
     const allCharacter = data.docs;
-
     return allCharacter;
   }
   static async searchCharacterForName(query: string): Promise<Character[]> {
@@ -20,7 +22,7 @@ export default class characterService {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer 31GQ6KxzLOqhWhQ3fB0s',
+        Authorization: `Bearer ${characterService.token}`,
       },
     });
     const data: DataCharacterApi = await response.json();
@@ -33,7 +35,7 @@ export default class characterService {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer 31GQ6KxzLOqhWhQ3fB0s',
+        Authorization: `Bearer ${characterService.token}`,
       },
     });
     const data: DataCharacterApi = await response.json();
