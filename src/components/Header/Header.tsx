@@ -6,8 +6,8 @@ import Search from '../Search/Search';
 import { Character } from 'interfaces';
 type HeaderProps = {
   isSearch: boolean;
-  setSearchCharacterCards: Function;
-  characterCards: Character[];
+  setSearchCharacterCards?: Function;
+  characterCards?: Character[];
 };
 
 function Header(props: HeaderProps) {

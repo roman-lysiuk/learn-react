@@ -5,7 +5,6 @@ export default class characterService {
   static token: string = import.meta.env.VITE_TOKEN;
 
   static async getAllCharacter(limit = 1000): Promise<Character[]> {
-    console.log(characterService.token);
     const response = await fetch(`${characterService.url}?limit=${limit}`, {
       method: 'GET',
       headers: {
