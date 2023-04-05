@@ -6,7 +6,7 @@ import Search from '../Search/Search';
 import { Character } from 'interfaces';
 type HeaderProps = {
   isSearch: boolean;
-  setSearchCharacterCards?: Function;
+  setSearchCharacterCards?: (characters: Character[]) => void;
   characterCards?: Character[];
 };
 
@@ -35,7 +35,7 @@ function Header(props: HeaderProps) {
     <header className="header">
       <h1 className="page-title">{title}</h1>
       <Menu />
-      {search ? (
+      {search && props.setSearchCharacterCards ? (
         <Search
           setSearchCharacterCards={props.setSearchCharacterCards}
           characterCards={props.characterCards}

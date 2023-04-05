@@ -4,7 +4,6 @@ import HomePage from '../../pages/HomePage';
 import AboutUsPage from '../../pages/AboutUsPage';
 import Page404 from '../../pages/Page404';
 import FormPage from '../../pages/FormPage';
-import { ModalState } from 'components/Modal/ContextModal';
 
 function App() {
   return (

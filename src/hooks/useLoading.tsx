@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 type useLoading = () => Promise<void>;
 
 export default function useLoading(callback: useLoading) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  async function loading() {
+
+  const loading = useCallback(async () => {
     try {
       setError('');
       setIsLoading(() => true);
@@ -16,6 +17,7 @@ export default function useLoading(callback: useLoading) {
     } finally {
       setIsLoading(() => false);
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return { isLoading, loading, error };
 }

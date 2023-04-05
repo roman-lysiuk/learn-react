@@ -3,7 +3,7 @@ import { Character } from 'interfaces';
 import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
 
 type SearchProps = {
-  setSearchCharacterCards: Function | undefined;
+  setSearchCharacterCards: (characters: Character[]) => void;
   characterCards: Character[] | undefined;
 };
 
@@ -29,13 +29,13 @@ function Search(props: SearchProps) {
 
   function searchCard(search: string) {
     const characters = props.characterCards?.filter((characters) => {
-      var regexp = new RegExp(`${search}`, 'i');
+      const regexp = new RegExp(`${search}`, 'i');
       if (characters.name.match(regexp)) return true;
       if (characters.race.match(regexp)) return true;
       return false;
     });
 
-    if (props.setSearchCharacterCards) props.setSearchCharacterCards(characters);
+    if (props.setSearchCharacterCards && characters) props.setSearchCharacterCards(characters);
   }
   return (
     <form className="search" onSubmit={onSubmit}>

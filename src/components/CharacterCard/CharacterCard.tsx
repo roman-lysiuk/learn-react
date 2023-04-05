@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Character } from '../../interfaces';
 import plug from '../../assets/pngwing.com.png';
 type CharacterCardProps = {
@@ -64,7 +64,7 @@ function CharacterCard(props: CharacterCardProps) {
         {character?.wikiUrl !== '' && showDetails && (
           <div className="card__wikiUrl">
             wikiUrl:{' '}
-            <a target="_blank" href={character?.wikiUrl}>
+            <a target="_blank" href={character?.wikiUrl} rel="noreferrer">
               {character?.wikiUrl}
             </a>
           </div>
