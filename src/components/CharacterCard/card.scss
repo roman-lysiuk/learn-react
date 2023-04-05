@@ -1,6 +1,7 @@
 .card {
-  width: calc(100% / 3 - 25px);
-  height: 450px;
+  cursor: pointer;
+  width: calc(100% / 5 - 25px);
+  height: 150px;
   box-shadow: 2px 2px 24px 1px rgba(0, 0, 0, 0.55);
   border-radius: 10px;
   display: flex;
@@ -30,5 +31,14 @@
 
   &__info {
     padding: 10px;
+  }
+}
+.card-detail {
+  width: 100%;
+  max-height: 600px;
+  .card__image {
+    img {
+      width: 50%;
+    }
   }
 }

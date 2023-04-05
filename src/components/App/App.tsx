@@ -4,17 +4,16 @@ import HomePage from '../../pages/HomePage';
 import AboutUsPage from '../../pages/AboutUsPage';
 import Page404 from '../../pages/Page404';
 import FormPage from '../../pages/FormPage';
+import { ModalState } from 'components/Modal/ContextModal';
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutUsPage />} />
-        <Route path="/form" element={<FormPage />} />
-        <Route path="*" element={<Page404 />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<AboutUsPage />} />
+      <Route path="/form" element={<FormPage />} />
+      <Route path="*" element={<Page404 />} />
+    </Routes>
   );
 }
 
