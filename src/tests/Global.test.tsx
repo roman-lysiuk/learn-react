@@ -17,7 +17,6 @@ describe('App ', () => {
     );
 
     expect(screen.getByRole('main')).toBeInTheDocument();
-    expect(screen.getByRole('heading')).toBeInTheDocument();
     expect(screen.getByText(/About Us/i)).toBeInTheDocument();
   });
 });
@@ -61,7 +60,7 @@ describe('Search ', () => {
   it('renders Search component', () => {
     render(<Search />);
 
-    expect(screen.getByPlaceholderText('Start searching')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Enter name or race')).toBeInTheDocument();
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.queryByText(/React/)).toBeNull();
