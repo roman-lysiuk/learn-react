@@ -1,10 +1,10 @@
-@import './components//Header/header.scss';
-@import './components/Search/search.scss';
-@import './components/Menu/menu.scss';
-@import './components/CharacterCard/card.scss';
-@import './components/Main/main.scss';
-@import './components/Form/form.scss';
-@import './components/Modal/modal.scss';
+@import "./components//Header/header.scss";
+@import "./components/Search/search.scss";
+@import "./components/Menu/menu.scss";
+@import "./components/CharacterCard/card.scss";
+@import "./components/Main/main.scss";
+@import "./components/Form/form.scss";
+@import "./components/Modal/modal.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -20,6 +20,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+body:has(.modal.active) {
+  height: 100vh;
+  overflow-y: hidden;
+  padding-right: 15px;
 }
 
 a {

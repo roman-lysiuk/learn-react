@@ -22,10 +22,8 @@ function HomePage() {
   });
 
   useEffect(() => {
-    console.log('fetch');
-
     fetchCharacter();
-  }, [fetchCharacter]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [fetchCharacter]);
 
   function setSearchCharacterCards(newCards: Character[]) {
     setSearchCharacter(newCards);
