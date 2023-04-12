@@ -16,12 +16,13 @@ export default function Main() {
     } else {
       dispatch(fetchCharacters());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       {isLoading && <Loader />}
-      {error && <Error message={'Download error character'} />}
+      {error && <Error message={error} />}
       <main className="main">
         <CharacterList characters={characters} />
       </main>

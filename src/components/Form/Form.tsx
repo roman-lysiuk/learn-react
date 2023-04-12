@@ -36,11 +36,11 @@ function Form() {
     reValidateMode: 'onSubmit',
     mode: 'onSubmit',
     defaultValues: {
-      firstName: 'Roma',
+      firstName: '',
       birthday: '2018-07-22',
       country: country[1],
       gender: 'male',
-      agreeData: true,
+      agreeData: false,
       agreePolicy: true,
     },
   });

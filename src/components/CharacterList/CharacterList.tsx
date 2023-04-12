@@ -13,17 +13,18 @@ function CharacterList(props: CharacterListProps) {
   const { current, isLoading, error } = useAppSelector((state) => state.characterReducer);
   const { isOpenModal } = useAppSelector((state) => state.modalReducer);
 
-  let listCharacter = props.characters?.map((character) => {
+  const listCharacter = props.characters?.map((character) => {
     return <CharacterCard character={character} key={character._id} />;
   });
 
   return (
     <div className="character-list">
-      {isOpenModal && (
+      {isLoading && <Loader />}
+
+      {isOpenModal && !isLoading && (
         <Modal>
-          {isLoading && <Loader />}
           {error && <Error message={error} />}
-          <CharacterCard character={current} showDetails={true} />
+          {!error && <CharacterCard character={current} showDetails={true} />}
         </Modal>
       )}
       {listCharacter?.length === 0 ? <h2>Nothing found</h2> : listCharacter}

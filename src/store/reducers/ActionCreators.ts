@@ -3,21 +3,20 @@ import characterService from '../../API/characterService';
 import { AppDispatch } from '../../store/store';
 import { searchSlice } from './SearchSlice';
 
-export const fetchCharacters = createAsyncThunk('character/fetchAll', async (_, thunkApi) => {
+export const fetchCharacters = createAsyncThunk('character/fetchAll', async () => {
   const allCharacters = await characterService.getAllCharacter();
   return allCharacters;
 });
-
 export const fetchFilterForNameCharacters = createAsyncThunk(
   'character/fetchFilterForName',
-  async (nameCharacter: string, thunkApi) => {
+  async (nameCharacter: string) => {
     const allCharacters = await characterService.searchCharacterForName(nameCharacter);
     return allCharacters;
   }
 );
 export const fetchSearchCharacterForID = createAsyncThunk(
   'character/fetchSearchId',
-  async (id: string, thunkApi) => {
+  async (id: string) => {
     const character = await characterService.searchCharacterForID(id);
     return character;
   }

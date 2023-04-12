@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 import Menu from '../Menu/Menu';
 import Search from '../Search/Search';
-import { Character } from 'interfaces';
 type HeaderProps = {
   isSearch: boolean;
 };

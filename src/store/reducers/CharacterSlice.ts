@@ -10,7 +10,7 @@ interface characterState {
   characters: Character[];
   current: Character | null;
   isLoading: boolean;
-  error: string | null;
+  error: string;
 }
 const initialState: characterState = {
   characters: [],
@@ -32,8 +32,9 @@ export const characterSlice = createSlice({
       .addCase(fetchCharacters.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchCharacters.rejected.type, (state, action: PayloadAction<string>) => {
-        state.error = action.payload;
+      .addCase(fetchCharacters.rejected, (state, action: PayloadAction<unknown>) => {
+        state.error =
+          action.payload instanceof Error ? action.payload.message : 'loading character cards';
         state.isLoading = false;
       })
       .addCase(
@@ -47,13 +48,11 @@ export const characterSlice = createSlice({
       .addCase(fetchFilterForNameCharacters.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(
-        fetchFilterForNameCharacters.rejected.type,
-        (state, action: PayloadAction<string>) => {
-          state.error = action.payload;
-          state.isLoading = false;
-        }
-      )
+      .addCase(fetchFilterForNameCharacters.rejected, (state, action: PayloadAction<unknown>) => {
+        state.error =
+          action.payload instanceof Error ? action.payload.message : 'loading character cards';
+        state.isLoading = false;
+      })
       .addCase(fetchSearchCharacterForID.fulfilled, (state, action: PayloadAction<Character>) => {
         state.current = action.payload;
         state.error = '';
@@ -62,8 +61,9 @@ export const characterSlice = createSlice({
       .addCase(fetchSearchCharacterForID.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchSearchCharacterForID.rejected.type, (state, action: PayloadAction<string>) => {
-        state.error = action.payload;
+      .addCase(fetchSearchCharacterForID.rejected, (state, action: PayloadAction<unknown>) => {
+        state.error =
+          action.payload instanceof Error ? action.payload.message : 'loading character card';
         state.isLoading = false;
       });
   },

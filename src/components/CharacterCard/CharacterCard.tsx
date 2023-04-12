@@ -2,7 +2,6 @@ import React from 'react';
 import { Character } from '../../interfaces';
 import plug from '../../assets/pngwing.com.png';
 import { useAppDispatch } from '../../hooks/redux';
-import { characterSlice } from '../../store/reducers/CharacterSlice';
 import { modalSlice } from '../../store/reducers/ModalSlice';
 import { fetchSearchCharacterForID } from '../../store/reducers/ActionCreators';
 type CharacterCardProps = {
@@ -17,8 +16,9 @@ function CharacterCard(props: CharacterCardProps) {
   return (
     <div
       onClick={() => {
-        if (character) dispatch(fetchSearchCharacterForID(character._id));
-        dispatch(modalSlice.actions.openModal());
+        console.log('dcd');
+        if (character && !showDetails) dispatch(fetchSearchCharacterForID(character._id));
+        if (!showDetails) dispatch(modalSlice.actions.openModal());
       }}
       className={cardClass}
       id="card"

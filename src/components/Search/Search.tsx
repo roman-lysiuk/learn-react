@@ -22,7 +22,7 @@ function Search() {
         value={valueSearch}
         onChange={(e) => dispatch(changeValueSearch(e.target.value))}
         className="search__input"
-        placeholder="Enter name or race"
+        placeholder="Enter name"
         name="search"
       ></input>
       <button className="btn btn_search">Search</button>
