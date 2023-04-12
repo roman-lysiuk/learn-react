@@ -22,45 +22,50 @@ export const characterSlice = createSlice({
   name: 'character',
   initialState,
   reducers: {},
-  extraReducers: {
-    [fetchCharacters.fulfilled.type]: (state, action: PayloadAction<Character[]>) => {
-      state.characters = action.payload;
-      state.error = '';
-      state.isLoading = false;
-    },
-    [fetchCharacters.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchCharacters.rejected.type]: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
-
-    [fetchFilterForNameCharacters.fulfilled.type]: (state, action: PayloadAction<Character[]>) => {
-      state.characters = action.payload;
-      state.error = '';
-      state.isLoading = false;
-    },
-    [fetchFilterForNameCharacters.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchFilterForNameCharacters.rejected.type]: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
-
-    [fetchSearchCharacterForID.fulfilled.type]: (state, action: PayloadAction<Character>) => {
-      state.current = action.payload;
-      state.error = '';
-      state.isLoading = false;
-    },
-    [fetchSearchCharacterForID.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchSearchCharacterForID.rejected.type]: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCharacters.fulfilled, (state, action: PayloadAction<Character[]>) => {
+        state.characters = action.payload;
+        state.error = '';
+        state.isLoading = false;
+      })
+      .addCase(fetchCharacters.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCharacters.rejected.type, (state, action: PayloadAction<string>) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(
+        fetchFilterForNameCharacters.fulfilled,
+        (state, action: PayloadAction<Character[]>) => {
+          state.characters = action.payload;
+          state.error = '';
+          state.isLoading = false;
+        }
+      )
+      .addCase(fetchFilterForNameCharacters.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchFilterForNameCharacters.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          state.error = action.payload;
+          state.isLoading = false;
+        }
+      )
+      .addCase(fetchSearchCharacterForID.fulfilled, (state, action: PayloadAction<Character>) => {
+        state.current = action.payload;
+        state.error = '';
+        state.isLoading = false;
+      })
+      .addCase(fetchSearchCharacterForID.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchSearchCharacterForID.rejected.type, (state, action: PayloadAction<string>) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      });
   },
 });
 
