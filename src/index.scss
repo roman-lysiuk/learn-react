@@ -82,7 +82,8 @@ button:focus-visible {
   text-align: center;
   font-size: 4rem;
 }
-.character-list {
+.character-list,
+.card-list {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
