@@ -1,15 +1,14 @@
 import { IUserCard } from '../../components/UserCard/UserCard';
 import React, { useState } from 'react';
-
 import { country } from '../../Data/listCountry.json';
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input';
 import SelectInput from '../../components/SelectInput/SelectInput';
 import RadioGroup from '../../components/RadioGroup/RadioGroup';
+import { validateBirthday, validationCheckbox, validationFirstName } from '../../helpers/validate';
+import { useAppDispatch } from '../../hooks/redux';
+import { formCardSlice } from '../../store/reducers/FormCardSlice';
 
-type FormProps = {
-  changeUserCardArr: (userCard: IUserCard) => void;
-};
 export type FormInput = {
   firstName: string;
   birthday: string;
@@ -20,8 +19,9 @@ export type FormInput = {
   agreePolicy: boolean;
 };
 
-function Form(props: FormProps) {
-  const [textDataSave, setTextDataSave] = useState('');
+function Form() {
+  const dispatch = useAppDispatch();
+  const [isSuccessForm, setIsSuccessForm] = useState(false);
   const genderList = [
     { value: 'male', labelName: 'Male' },
     { value: 'female', labelName: 'Female' },
@@ -45,12 +45,6 @@ function Form(props: FormProps) {
     },
   });
 
-  const { emptyErrorMessage, minLengthErrorMessage, maxLengthErrorMessage } = {
-    emptyErrorMessage: 'This field is required',
-    minLengthErrorMessage: `Minimum length characters `,
-    maxLengthErrorMessage: `Maximum length characters `,
-  };
-
   function onSubmit(data: FormInput) {
     const fileList: FileList | null | undefined = data.avatar;
     const userCard: IUserCard = {
@@ -61,53 +55,18 @@ function Form(props: FormProps) {
       country: data.country,
       gender: data.gender,
     };
-
-    props.changeUserCardArr(userCard);
-
+    dispatch(formCardSlice.actions.addUserCard(userCard));
     reset();
-    setTextDataSave('Your data has been saved');
+    setIsSuccessForm(true);
 
     setTimeout(() => {
-      setTextDataSave('');
+      setIsSuccessForm(false);
     }, 2000);
   }
-  const validationFirstName = {
-    required: {
-      value: true,
-      message: emptyErrorMessage,
-    },
-    minLength: {
-      value: 3,
-      message: `${minLengthErrorMessage + 3}`,
-    },
-    maxLength: {
-      value: 15,
-      message: `${maxLengthErrorMessage + 15}`,
-    },
-    pattern: {
-      value: /^[A-Z][a-z]{2,}/gm,
-      message: 'Lower case name',
-    },
-  };
-  const validateBirthday = {
-    valueAsDate: true,
-    required: {
-      value: true,
-      message: emptyErrorMessage,
-    },
-    validate: (value: string | boolean | FileList | Date): boolean | string => {
-      const dateYear = new Date(value as string).getFullYear();
-      const currentDate = new Date().getFullYear();
-      const yearAge = 5;
-      const isValid = dateYear <= currentDate - yearAge;
-      return isValid || 'At least 5 years ago';
-    },
-  };
 
-  const validationCheckbox = { required: { value: true, message: emptyErrorMessage } };
   return (
     <div>
-      <h2 className="text-data-save">{textDataSave}</h2>
+      {isSuccessForm && <h2 className="text-data-save">Your data has been saved!</h2>}
 
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <Input

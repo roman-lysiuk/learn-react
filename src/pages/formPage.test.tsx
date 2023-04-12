@@ -2,15 +2,15 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import FormPage from './FormPage';
+import { Wrapper } from '../tests/Global.test';
 
 describe('Form Page  ', () => {
   it('renders FormPage component', () => {
     render(
-      <BrowserRouter>
+      <Wrapper>
         <FormPage />
-      </BrowserRouter>
+      </Wrapper>
     );
     expect(screen.getAllByRole('checkbox').length).toBe(2);
     expect(screen.getAllByRole('radio').length).toBe(2);
@@ -21,9 +21,9 @@ describe('Form Page  ', () => {
   });
   it('click checkbox', async () => {
     render(
-      <BrowserRouter>
+      <Wrapper>
         <FormPage />
-      </BrowserRouter>
+      </Wrapper>
     );
 
     const checkboxAgreeData = screen.getByRole('checkbox', {
@@ -41,9 +41,9 @@ describe('Form Page  ', () => {
 
   it('fill out the form and generate a one card', async () => {
     render(
-      <BrowserRouter>
+      <Wrapper>
         <FormPage />
-      </BrowserRouter>
+      </Wrapper>
     );
 
     const nameInput = screen.getByRole('textbox', {

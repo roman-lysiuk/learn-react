@@ -3,17 +3,13 @@ import { useLocation } from 'react-router-dom';
 
 import Menu from '../Menu/Menu';
 import Search from '../Search/Search';
-import { Character } from 'interfaces';
 type HeaderProps = {
   isSearch: boolean;
-  setSearchCharacterCards?: (characters: Character[]) => void;
-  characterCards?: Character[];
 };
 
 function Header(props: HeaderProps) {
   const [title, setTitle] = useState('');
   const location = useLocation();
-  const [search] = useState(props.isSearch);
 
   useEffect(() => {
     const title = pageTitleFromPath(location.pathname);
@@ -35,12 +31,7 @@ function Header(props: HeaderProps) {
     <header className="header">
       <h1 className="page-title">{title}</h1>
       <Menu />
-      {search && props.setSearchCharacterCards ? (
-        <Search
-          setSearchCharacterCards={props.setSearchCharacterCards}
-          characterCards={props.characterCards}
-        />
-      ) : null}
+      {props.isSearch && <Search />}
     </header>
   );
 }

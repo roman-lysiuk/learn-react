@@ -10,7 +10,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './setupTests.ts',
     coverage: {
-      //   provider: 'c8',
+      provider: 'istanbul',
       //   all: true,
       //   skillFull: true,
       reporter: 'text',

@@ -1,50 +1,28 @@
-import { Character } from 'interfaces';
+import {
+  changeValueSearch,
+  fetchFilterForNameCharacters,
+} from '../../store/reducers/ActionCreators';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React from 'react';
 
-type SearchProps = {
-  setSearchCharacterCards: (characters: Character[]) => void;
-  characterCards: Character[] | undefined;
-};
+function Search() {
+  const { valueSearch } = useAppSelector((state) => state.searchReducer);
+  const dispatch = useAppDispatch();
 
-function Search(props: SearchProps) {
-  const [value, setValue] = useState('');
-  const searchRef = useRef(value);
-
-  function onSubmit(event: SyntheticEvent) {
+  function onSubmit(event: React.FormEvent) {
     event.preventDefault();
-    searchCard(value);
+    dispatch(fetchFilterForNameCharacters(valueSearch));
   }
 
-  useEffect(() => {
-    searchRef.current = value;
-  }, [value]);
-
-  useEffect(() => {
-    setValue(localStorage.getItem('searchValue') || '');
-    return () => {
-      localStorage.setItem('searchValue', searchRef.current);
-    };
-  }, []);
-
-  function searchCard(search: string) {
-    const characters = props.characterCards?.filter((characters) => {
-      const regexp = new RegExp(`${search}`, 'i');
-      if (characters.name.match(regexp)) return true;
-      if (characters.race.match(regexp)) return true;
-      return false;
-    });
-
-    if (props.setSearchCharacterCards && characters) props.setSearchCharacterCards(characters);
-  }
   return (
     <form className="search" onSubmit={onSubmit}>
       <input
         type="search"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={valueSearch}
+        onChange={(e) => dispatch(changeValueSearch(e.target.value))}
         className="search__input"
-        placeholder="Enter name or race"
+        placeholder="Enter name"
         name="search"
       ></input>
       <button className="btn btn_search">Search</button>

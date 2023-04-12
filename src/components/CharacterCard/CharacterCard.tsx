@@ -1,24 +1,24 @@
 import React from 'react';
 import { Character } from '../../interfaces';
 import plug from '../../assets/pngwing.com.png';
+import { useAppDispatch } from '../../hooks/redux';
+import { modalSlice } from '../../store/reducers/ModalSlice';
+import { fetchSearchCharacterForID } from '../../store/reducers/ActionCreators';
 type CharacterCardProps = {
-  character: Character | undefined;
-  openModal?: () => void;
-  setCurrentCharacter?: (character: Character) => void;
+  character: Character | null;
   showDetails?: boolean;
 };
 
 function CharacterCard(props: CharacterCardProps) {
-  const { character, setCurrentCharacter, openModal, showDetails = false } = props;
+  const dispatch = useAppDispatch();
+  const { character, showDetails = false } = props;
   const cardClass = showDetails ? 'card-detail' : 'card';
   return (
     <div
       onClick={() => {
-        if (showDetails) {
-          return;
-        }
-        if (setCurrentCharacter && character) setCurrentCharacter(character);
-        if (openModal) openModal();
+        console.log('dcd');
+        if (character && !showDetails) dispatch(fetchSearchCharacterForID(character._id));
+        if (!showDetails) dispatch(modalSlice.actions.openModal());
       }}
       className={cardClass}
       id="card"
