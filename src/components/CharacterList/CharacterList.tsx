@@ -1,29 +1,29 @@
-import { Character } from 'interfaces';
 import React from 'react';
 import CharacterCard from '../CharacterCard/CharacterCard';
+import Modal from '../../components/Modal/Modal';
+import { useAppSelector } from '../../hooks/redux';
+import { Character } from 'interfaces';
 
-type CharacterListProps = {
-  arrCard: Character[];
-  openModal: () => void;
-  setCurrentCharacter: (character: Character) => void;
-};
-
+interface CharacterListProps {
+  characters: Character[];
+}
 function CharacterList(props: CharacterListProps) {
-  const { setCurrentCharacter, openModal, arrCard } = props;
+  const { current } = useAppSelector((state) => state.characterReducer);
+  const { isOpenModal } = useAppSelector((state) => state.modalReducer);
 
-  if (arrCard.length === 0) return <h2>Nothing found</h2>;
-
-  const listCharacter = props.arrCard.map((character) => {
-    return (
-      <CharacterCard
-        setCurrentCharacter={setCurrentCharacter}
-        openModal={openModal}
-        character={character}
-        key={character._id}
-      />
-    );
+  let listCharacter = props.characters?.map((character) => {
+    return <CharacterCard character={character} key={character._id} />;
   });
 
-  return <div className="character-list">{listCharacter}</div>;
+  return (
+    <div className="character-list">
+      {isOpenModal && (
+        <Modal>
+          <CharacterCard character={current} showDetails={true} />
+        </Modal>
+      )}
+      {listCharacter?.length === 0 ? <h2>Nothing found</h2> : listCharacter}
+    </div>
+  );
 }
 export default CharacterList;

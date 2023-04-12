@@ -10,7 +10,7 @@ import userEvent from '@testing-library/user-event';
 import HomePage from '../pages/HomePage';
 import { server } from '../mocks/server';
 import { rest } from 'msw';
-import characterService from '../API/characterService';
+import characterService from '../services/theOneApiService';
 
 describe('App ', () => {
   it('renders App component', () => {

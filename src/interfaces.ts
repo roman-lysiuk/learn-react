@@ -24,8 +24,8 @@ export interface Character {
   name: string;
   wikiUrl: string;
 }
-export interface DataCharacterApi {
-  docs: Character[];
+export interface ResponseServer<T> {
+  docs: T[];
   total: number;
   limit: number;
   offset: number;

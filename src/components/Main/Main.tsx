@@ -1,30 +1,29 @@
-import Modal from '../../components/Modal/Modal';
 import CharacterList from '../../components/CharacterList/CharacterList';
-import { Character } from 'interfaces';
-import React, { useContext, useState } from 'react';
-import { ContextModal } from '../../components/Modal/ContextModal';
-import CharacterCard from '../../components/CharacterCard/CharacterCard';
-type MainProps = {
-  characterCards: Character[];
-};
-export default function Main(props: MainProps) {
-  const [currentCharacter, setCurrentCharacter] = useState<Character>();
-  const { isOpenModal, openModal } = useContext(ContextModal);
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import Loader from '../../components/Loader/Loader';
+import Error from '../../components/Error/Error';
+import { fetchCharacters, fetchFilterForNameCharacters } from '../../store/reducers/ActionCreators';
+
+export default function Main() {
+  const dispatch = useAppDispatch();
+  const { valueSearch } = useAppSelector((state) => state.searchReducer);
+  const { characters, error, isLoading } = useAppSelector((state) => state.characterReducer);
+
+  useEffect(() => {
+    if (valueSearch && valueSearch !== '') {
+      dispatch(fetchFilterForNameCharacters(valueSearch));
+    } else {
+      dispatch(fetchCharacters());
+    }
+  }, []);
 
   return (
     <>
+      {isLoading && <Loader />}
+      {error && <Error message={'Download error character'} />}
       <main className="main">
-        {isOpenModal && (
-          <Modal>
-            <CharacterCard character={currentCharacter} showDetails={true} />
-          </Modal>
-        )}
-
-        <CharacterList
-          setCurrentCharacter={setCurrentCharacter}
-          arrCard={props.characterCards}
-          openModal={openModal}
-        />
+        <CharacterList characters={characters} />
       </main>
     </>
   );

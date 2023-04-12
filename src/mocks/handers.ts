@@ -1,4 +1,4 @@
-import characterService from '../API/characterService';
+import characterService from '../services/theOneApiService';
 import { rest } from 'msw';
 export const handlers = [
   rest.get(`${characterService.url}`, (req, res, ctx) => {
