@@ -30,7 +30,7 @@ export default class characterService {
     return allCharacter;
   }
   static async searchCharacterForID(id: string) {
-    const response = await fetch(`${characterService.url}/${id}`, {
+    const response = await fetch(`${characterService.url}/character/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

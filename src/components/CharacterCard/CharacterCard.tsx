@@ -4,6 +4,7 @@ import plug from '../../assets/pngwing.com.png';
 import { useAppDispatch } from '../../hooks/redux';
 import { characterSlice } from '../../store/reducers/CharacterSlice';
 import { modalSlice } from '../../store/reducers/ModalSlice';
+import { fetchSearchCharacterForID } from '../../store/reducers/ActionCreators';
 type CharacterCardProps = {
   character: Character | null;
   showDetails?: boolean;
@@ -16,7 +17,7 @@ function CharacterCard(props: CharacterCardProps) {
   return (
     <div
       onClick={() => {
-        if (character) dispatch(characterSlice.actions.changeCurrentCharacter(character));
+        if (character) dispatch(fetchSearchCharacterForID(character._id));
         dispatch(modalSlice.actions.openModal());
       }}
       className={cardClass}

@@ -21,11 +21,7 @@ const initialState: characterState = {
 export const characterSlice = createSlice({
   name: 'character',
   initialState,
-  reducers: {
-    changeCurrentCharacter(state, action: PayloadAction<Character>) {
-      state.current = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: {
     [fetchCharacters.fulfilled.type]: (state, action: PayloadAction<Character[]>) => {
       state.characters = action.payload;
