@@ -1,4 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import * as toolkitRaw from '@reduxjs/toolkit';
+const { createSlice } = ((toolkitRaw as any).default ?? toolkitRaw) as typeof toolkitRaw;
+
 import { Character } from '../../interfaces';
 import {
   fetchCharacters,
@@ -18,13 +20,14 @@ const initialState: characterState = {
   current: null,
   error: '',
 };
+
 export const characterSlice = createSlice({
   name: 'character',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCharacters.fulfilled, (state, action: PayloadAction<Character[]>) => {
+      .addCase(fetchCharacters.fulfilled, (state, action) => {
         state.characters = action.payload;
         state.error = '';
         state.isLoading = false;
@@ -32,28 +35,25 @@ export const characterSlice = createSlice({
       .addCase(fetchCharacters.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchCharacters.rejected, (state, action: PayloadAction<unknown>) => {
+      .addCase(fetchCharacters.rejected, (state, action) => {
         state.error =
           action.payload instanceof Error ? action.payload.message : 'loading character cards';
         state.isLoading = false;
       })
-      .addCase(
-        fetchFilterForNameCharacters.fulfilled,
-        (state, action: PayloadAction<Character[]>) => {
-          state.characters = action.payload;
-          state.error = '';
-          state.isLoading = false;
-        }
-      )
+      .addCase(fetchFilterForNameCharacters.fulfilled, (state, action) => {
+        state.characters = action.payload;
+        state.error = '';
+        state.isLoading = false;
+      })
       .addCase(fetchFilterForNameCharacters.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchFilterForNameCharacters.rejected, (state, action: PayloadAction<unknown>) => {
+      .addCase(fetchFilterForNameCharacters.rejected, (state, action) => {
         state.error =
           action.payload instanceof Error ? action.payload.message : 'loading character cards';
         state.isLoading = false;
       })
-      .addCase(fetchSearchCharacterForID.fulfilled, (state, action: PayloadAction<Character>) => {
+      .addCase(fetchSearchCharacterForID.fulfilled, (state, action) => {
         state.current = action.payload;
         state.error = '';
         state.isLoading = false;
@@ -61,7 +61,7 @@ export const characterSlice = createSlice({
       .addCase(fetchSearchCharacterForID.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchSearchCharacterForID.rejected, (state, action: PayloadAction<unknown>) => {
+      .addCase(fetchSearchCharacterForID.rejected, (state, action) => {
         state.error =
           action.payload instanceof Error ? action.payload.message : 'loading character card';
         state.isLoading = false;

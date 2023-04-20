@@ -1,4 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import * as toolkitRaw from '@reduxjs/toolkit';
+const { createSlice } = ((toolkitRaw as any).default ?? toolkitRaw) as typeof toolkitRaw;
 import { IUserCard } from '../../components/UserCard/UserCard';
 
 interface formCardState {
@@ -11,7 +12,7 @@ export const formCardSlice = createSlice({
   name: 'formCardSlice',
   initialState,
   reducers: {
-    addUserCard(state, action: PayloadAction<IUserCard>) {
+    addUserCard(state, action) {
       state.cards.push(action.payload);
     },
   },
