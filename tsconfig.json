@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "types": ["vite/client"],
+    "allowJs": true,
     "target": "esnext",
     "lib": ["dom", "esnext", "dom.iterable"],
     "jsx": "react",
@@ -15,5 +17,11 @@
     "baseUrl": "./src",
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*", "styled.d.ts"]
+
+  "include": ["./src/**/*", "styled.d.ts", "server.ts", "src/vite-env.d.ts"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+
+  }
 }
