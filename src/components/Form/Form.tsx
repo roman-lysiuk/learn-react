@@ -1,6 +1,6 @@
 import { IUserCard } from '../../components/UserCard/UserCard';
 import React, { useState } from 'react';
-import { country } from '../../Data/listCountry.json';
+import data from '../../Data/listCountry.json' assert { type: 'json' };
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input';
 import SelectInput from '../../components/SelectInput/SelectInput';
@@ -38,7 +38,7 @@ function Form() {
     defaultValues: {
       firstName: '',
       birthday: '2018-07-22',
-      country: country[1],
+      country: data.country[1],
       gender: 'male',
       agreeData: false,
       agreePolicy: true,
@@ -93,7 +93,7 @@ function Form() {
           labelName="Country:"
           register={register}
           errors={errors}
-          listOption={country}
+          listOption={data.country}
         />
 
         <RadioGroup register={register} errors={errors} name="gender" listRadio={genderList} />
