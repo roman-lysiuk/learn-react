@@ -1,5 +1,4 @@
-import * as toolkitRaw from '@reduxjs/toolkit';
-const { createSlice } = ((toolkitRaw as any).default ?? toolkitRaw) as typeof toolkitRaw;
+import { createSlice } from '@reduxjs/toolkit';
 
 import { Character } from '../../interfaces';
 import {

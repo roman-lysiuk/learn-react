@@ -1,5 +1,4 @@
-import * as toolkitRaw from '@reduxjs/toolkit';
-const { createAsyncThunk } = ((toolkitRaw as any).default ?? toolkitRaw) as typeof toolkitRaw;
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import characterService from '../../API/characterService';
 import { AppDispatch } from '../../store/store';
 import { searchSlice } from './SearchSlice';
