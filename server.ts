@@ -4,25 +4,21 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import ServerAppRender from './dist/server/entry-server.js';
 
-const PORT = '3000'; //import.meta.env.VITE_PORT_SERVER
+const PORT = process.env.PORT_SERVER || '3001';
 
 const bootstrap = async () => {
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const server = express();
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const htmlTemplate = fs
+    .readFileSync(path.resolve(__dirname, './dist/client/index.html'))
+    .toString();
+  const parts = htmlTemplate.split('ssr-outlet');
 
-  server.use(express.static('dist/client'));
-
+  server.use('/assets', express.static(path.resolve(__dirname, './dist/client/assets')));
   server.use(async (req, res) => {
     try {
-      const htmlTemplate = fs
-        .readFileSync(path.resolve(__dirname, './dist/client/index.html'))
-        .toString();
-      const parts = htmlTemplate.split('<!--ssr-outlet-->');
-
       res.write(parts[0]);
-
-      const { pipe } = await ServerAppRender(req.url, {
-        bootstrapScripts: ['./src/entry-client.js'],
+      const { pipe } = ServerAppRender(req.url, {
         onShellReady() {
           pipe(res);
         },
