@@ -1,14 +1,16 @@
 import Header from '../components/Header/Header';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Main from '../components/Main/Main';
-import { ModalState } from '../components/Modal/ContextModal';
+import Loader from '../components/Loader/Loader';
 
 function HomePage() {
   return (
-    <ModalState>
+    <>
       <Header isSearch={true} />
-      <Main />
-    </ModalState>
+      <Suspense fallback={<Loader />}>
+        <Main />
+      </Suspense>
+    </>
   );
 }
 
