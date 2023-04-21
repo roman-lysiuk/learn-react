@@ -12,20 +12,19 @@ const bootstrap = async () => {
 
   server.use(express.static('dist/client'));
 
-  server.use((req, res) => {
+  server.use(async (req, res) => {
     try {
       const htmlTemplate = fs
         .readFileSync(path.resolve(__dirname, './dist/client/index.html'))
         .toString();
       const parts = htmlTemplate.split('<!--ssr-outlet-->');
+
       res.write(parts[0]);
 
-      const stream = ServerAppRender(req.url, {
+      const { pipe } = await ServerAppRender(req.url, {
+        bootstrapScripts: ['./src/entry-client.js'],
         onShellReady() {
-          stream.pipe(res);
-        },
-        onShellError() {
-          // do error handling
+          pipe(res);
         },
         onAllReady() {
           res.write(parts[1]);
@@ -37,7 +36,6 @@ const bootstrap = async () => {
           }
         },
       });
-      res.statusCode = 200;
     } catch (error) {
       console.log(error);
     }

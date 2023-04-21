@@ -13,7 +13,7 @@
     "build:client": "vite build --outDir ./dist/client",
     "build:server": "vite build --outDir ./dist/server --ssr /src/entry-server.tsx",
     "build": "npm run build:client && npm run build:server",
-    "start": "ts-node server.ts"
+    "start": "nodemon server.ts"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",

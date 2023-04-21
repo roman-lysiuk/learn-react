@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import App from '../components/App/App';
+import App from '../components/RenderApp/RenderApp';
 import Page404 from '../pages/Page404';
 import AboutUsPage from '../pages/AboutUsPage';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
