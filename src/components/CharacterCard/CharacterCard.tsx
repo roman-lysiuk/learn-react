@@ -16,7 +16,6 @@ function CharacterCard(props: CharacterCardProps) {
   return (
     <div
       onClick={() => {
-        console.log('dcd');
         if (character && !showDetails) dispatch(fetchSearchCharacterForID(character._id));
         if (!showDetails) dispatch(modalSlice.actions.openModal());
       }}
