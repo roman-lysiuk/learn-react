@@ -3,10 +3,10 @@ import { StaticRouter } from 'react-router-dom/server';
 import RenderApp from './components/RenderApp/RenderApp';
 import { Provider } from 'react-redux';
 import React from 'react';
-import { setupStore } from './store/store';
+import { ssrStore } from './store/store';
 
 export default function ServerAppRender(url: string, options: {}) {
-  const store = setupStore();
+  const store = ssrStore();
   const stream = renderToPipeableStream(
     <Provider store={store}>
       <StaticRouter location={url}>
