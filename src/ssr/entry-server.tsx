@@ -1,9 +1,9 @@
 import { renderToPipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
-import RenderApp from './components/RenderApp/RenderApp';
+import RenderApp from '../components/RenderApp/RenderApp';
 import { Provider } from 'react-redux';
 import React from 'react';
-import { ssrStore } from './store/store';
+import { ssrStore } from '../store/store';
 
 type Options = {
   identifierPrefix?: string;
