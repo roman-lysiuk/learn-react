@@ -3,8 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ServerAppRender from './dist/server/entry-server.js';
-
-const PORT = process.env.PORT_SERVER || '3001';
+const PORT: string = process.env.PORT || '3000';
 
 const bootstrap = async () => {
   const server = express();

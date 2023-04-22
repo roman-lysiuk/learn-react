@@ -1,11 +1,8 @@
 import { Character, ResponseServer } from 'interfaces';
 
 export default class characterService {
-  // static url: string = import.meta.env.VITE_URL;
-  // static token: string = import.meta.env.VITE_TOKEN;
-
-  static url: string = ' https://the-one-api.dev/v2';
-  static token: string = '31GQ6KxzLOqhWhQ3fB0s';
+  static url: string = process.env.URL as string;
+  static token: string = process.env.TOKEN as string;
 
   static async getAllCharacter(limit = 1000): Promise<Character[]> {
     const response = await fetch(`${characterService.url}/character/?limit=${limit}`, {
