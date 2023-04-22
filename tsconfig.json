@@ -21,7 +21,6 @@
   "include": ["./src/**/*", "styled.d.ts", "server.ts", "src/vite-env.d.ts"],
   "ts-node": {
     "esm": true,
-    "experimentalSpecifierResolution": "node",
-
+    "experimentalSpecifierResolution": "node"
   }
 }
