@@ -34,7 +34,7 @@ export const characterSlice = createSlice({
       .addCase(fetchCharacters.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchCharacters.rejected, (state, action) => {
+      .addCase(fetchCharacters.rejected, (state) => {
         state.error = 'loading character cards';
         state.isLoading = false;
       })
@@ -46,7 +46,7 @@ export const characterSlice = createSlice({
       .addCase(fetchFilterForNameCharacters.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchFilterForNameCharacters.rejected, (state, action) => {
+      .addCase(fetchFilterForNameCharacters.rejected, (state) => {
         state.error = 'loading character cards';
         state.isLoading = false;
       })
@@ -58,7 +58,7 @@ export const characterSlice = createSlice({
       .addCase(fetchSearchCharacterForID.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchSearchCharacterForID.rejected, (state, action) => {
+      .addCase(fetchSearchCharacterForID.rejected, (state) => {
         state.error = 'loading character card';
         state.isLoading = false;
       });
