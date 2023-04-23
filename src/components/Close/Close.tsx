@@ -1,6 +1,5 @@
 import React from 'react';
 import closeIcon from '../../assets/close-icon.svg';
-import './Close.scss';
 
 interface Close {
   onClick: () => void;
