@@ -1,0 +1,23 @@
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  border: 20px dotted #837a7a;
+  border-top: 20px dotted #1cc410;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  animation: round 3s linear infinite;
+}
+
+@keyframes round {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
