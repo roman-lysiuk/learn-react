@@ -35,8 +35,7 @@ export const characterSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchCharacters.rejected, (state, action) => {
-        state.error =
-          action.payload instanceof Error ? action.payload.message : 'loading character cards';
+        state.error = 'loading character cards';
         state.isLoading = false;
       })
       .addCase(fetchFilterForNameCharacters.fulfilled, (state, action) => {
@@ -48,8 +47,7 @@ export const characterSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchFilterForNameCharacters.rejected, (state, action) => {
-        state.error =
-          action.payload instanceof Error ? action.payload.message : 'loading character cards';
+        state.error = 'loading character cards';
         state.isLoading = false;
       })
       .addCase(fetchSearchCharacterForID.fulfilled, (state, action) => {
@@ -61,8 +59,7 @@ export const characterSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchSearchCharacterForID.rejected, (state, action) => {
-        state.error =
-          action.payload instanceof Error ? action.payload.message : 'loading character card';
+        state.error = 'loading character card';
         state.isLoading = false;
       });
   },
