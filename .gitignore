@@ -14,7 +14,6 @@ dist-ssr
 
 # Editor directories and files
 coverage
-instrumented
 cupress/videos/*
 .nyc_output
 .vscode/*
