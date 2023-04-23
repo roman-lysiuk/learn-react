@@ -1,21 +1,22 @@
 /// <reference types="Cypress" />
+/* eslint-disable cypress/no-unnecessary-waiting */
 describe('Home page', () => {
   it('Visits the localhost', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
   });
 
   it('finds the content "Search"', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
     cy.contains('Search');
   });
 
   it('clicks the link "About us"', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
     cy.contains('About us').click();
   });
 
   it('clicking "About us" navigates to a new url', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
 
     cy.contains('About us').click();
 
@@ -23,7 +24,7 @@ describe('Home page', () => {
   });
 
   it('Search by name Frodo"', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
     cy.get('.search').type('Frodo');
     cy.contains('Search').click();
     cy.get('.character-list').children().should('have.length', 2);
@@ -32,7 +33,7 @@ describe('Home page', () => {
   });
 
   it('Click by name Frodo for view detail modal"', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
     cy.get('.search').type('Frodo');
     cy.contains('Search').click();
     cy.contains('Frodo Baggins').click();
@@ -45,7 +46,7 @@ describe('Home page', () => {
     cy.contains('Death - Unknown (Last sighting ,September 29 ,3021,) (,SR 1421,)');
   });
   it('Open and close modal"', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
     cy.get('.search').type('Frodo');
     cy.contains('Search').click();
     cy.contains('Frodo Baggins').click();
@@ -66,7 +67,7 @@ describe('Home page', () => {
       });
     }).as('getData');
     cy.visit('http://localhost:3000');
-    cy.wait('@getData');
+    cy.wait('@getData', { requestTimeout: 1000 });
     cy.contains('Error: loading character cards');
     cy.contains('Nothing found');
   });
@@ -79,7 +80,7 @@ describe('Home page', () => {
 
     cy.visit('http://localhost:3000');
     cy.contains('Adanel').click();
-    cy.wait('@getData');
+    cy.wait('@getData', { requestTimeout: 1000 });
     cy.get('div').should('have.class', 'modal').and('have.class', 'active');
     cy.contains('Error: loading character card');
   });
@@ -92,7 +93,7 @@ describe('Home page', () => {
     cy.visit('http://localhost:3000');
     cy.get('.search').type('Adanel');
     cy.contains('Search').click();
-    cy.wait('@getData');
+    cy.wait('@getData', { requestTimeout: 1000 });
     cy.contains('Error: loading character cards');
     cy.contains('Nothing found');
   });
